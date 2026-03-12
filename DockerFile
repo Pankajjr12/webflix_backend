@@ -13,6 +13,5 @@ FROM openjdk:17-alpine
 WORKDIR /app
 # Copy the JAR file from the build stage
 COPY --from=maven-builder /app/target/*.jar webflix.jar
-
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "webflix.jar"]
