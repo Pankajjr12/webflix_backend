@@ -19,7 +19,7 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    @Value("${app.frontend.url:http://localhost:4200}")
+    @Value("${app.cors.allowed-origins:http://localhost:4200,https://web-flix-frontend.vercel.app}")
     private String frontendUrl;
 
     @Value("${spring.mail.username}")
