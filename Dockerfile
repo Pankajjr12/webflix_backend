@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM maven:3.8.4-openjdk-17 AS maven-builder
+FROM maven:3.9.9-eclipse-temurin-21 AS maven-builder
 WORKDIR /app
 
 COPY pom.xml .
@@ -9,7 +9,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Runtime image
-FROM eclipse-temurin:17-jdk-alpine
+FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
 
