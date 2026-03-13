@@ -21,17 +21,10 @@ import com.watchify.app.security.JWTAuthenticationFilter;
 public class SecurityConfig {
 
     @Autowired
-    private JWTAuthenticationFilter jWTAuthenticationFilter;
+    private JWTAuthenticationFilter jwtAuthenticationFilter;
 
     private static final String[] PUBLIC_ENDPOINTS = {
-        "/api/auth/login",
-        "/api/auth/signup",
-        "/api/auth/validate-email",
-        "/api/auth/verify-email",
-        "/api/auth/reend-verification",
-        "/api/auth/forgot-password",
-        "/api/auth/reset-password",
-        // ✅ ADD THESE
+        "/api/auth/**",
         "/api/files/video/**",
         "/api/files/image/**"
     };
@@ -42,16 +35,20 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf(csrf -> csrf.disable())
-                .cors(Customizer
-                        .withDefaults())
-                .authorizeHttpRequests(auth -> auth.requestMatchers(PUBLIC_ENDPOINTS).permitAll().anyRequest().authenticated())
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        http
+                .csrf(csrf -> csrf.disable())
+                .cors(Customizer.withDefaults())
+                .authorizeHttpRequests(auth -> auth
+                .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
+                .anyRequest().authenticated()
+                )
                 .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jWTAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        return httpSecurity.build();
+        return http.build();
     }
-
 }
