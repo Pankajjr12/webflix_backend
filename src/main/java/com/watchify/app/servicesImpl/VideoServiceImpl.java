@@ -34,7 +34,6 @@ public class VideoServiceImpl implements VideoService {
     private ServiceUtils serviceUtils;
 
     @Override
-
     public MessageResponse createVideoByAdmin(VideoRequest videoRequest) {
         Video video = new Video();
         video.setTitle(videoRequest.getTitle());
@@ -145,5 +144,4 @@ public class VideoServiceImpl implements VideoService {
         List<Video> videos = videoRepository.findRandomPublishedVideos(pageable);
         return videos.stream().map(VideoResponse::fromEntity).toList();
     }
-
 }
