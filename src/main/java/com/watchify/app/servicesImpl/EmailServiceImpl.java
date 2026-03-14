@@ -33,7 +33,7 @@ public class EmailServiceImpl implements EmailService {
             message.setTo(toEmail);
             message.setSubject("WebFlix - Verify Your Email");
 
-            String verificationLink = frontendUrl + "/verify-email?token=" + token;
+            String verificationLink = frontendUrl + "/api/auth/verify-email?token=" + token;
             String emailBody
                     = "Welcome to Webflix !\n\n"
                     + "Thank you for registering. Please verify your email address by clicking the link below:\n\n"
