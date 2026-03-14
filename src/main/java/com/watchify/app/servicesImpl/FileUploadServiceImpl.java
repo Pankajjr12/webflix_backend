@@ -22,7 +22,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 
         try {
 
-            Map<?, ?> uploadResult = cloudinary.uploader().upload(
+            Map uploadResult = cloudinary.uploader().uploadLarge(
                     file.getBytes(),
                     ObjectUtils.asMap(
                             "resource_type", "video",
@@ -33,7 +33,7 @@ public class FileUploadServiceImpl implements FileUploadService {
             return uploadResult.get("secure_url").toString();
 
         } catch (IOException e) {
-            throw new RuntimeException("Video upload failed", e);
+            throw new RuntimeException("Video upload failed: " + e.getMessage());
         }
     }
 
@@ -42,7 +42,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 
         try {
 
-            Map<?, ?> uploadResult = cloudinary.uploader().upload(
+            Map uploadResult = cloudinary.uploader().upload(
                     file.getBytes(),
                     ObjectUtils.asMap(
                             "resource_type", "image",
@@ -53,7 +53,7 @@ public class FileUploadServiceImpl implements FileUploadService {
             return uploadResult.get("secure_url").toString();
 
         } catch (IOException e) {
-            throw new RuntimeException("Image upload failed", e);
+            throw new RuntimeException("Image upload failed: " + e.getMessage());
         }
     }
 }

@@ -21,7 +21,11 @@ public class FileUploadController {
     private FileUploadService fileUploadService;
 
     @PostMapping("/upload/video")
-    public ResponseEntity<Map<String, String>> uploadVideo(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> uploadVideo(@RequestParam("file") MultipartFile file) {
+
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body("File is empty");
+        }
 
         String url = fileUploadService.storeVideoFile(file);
 
@@ -34,7 +38,11 @@ public class FileUploadController {
     }
 
     @PostMapping("/upload/image")
-    public ResponseEntity<Map<String, String>> uploadImage(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file) {
+
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body("File is empty");
+        }
 
         String url = fileUploadService.storeImageFile(file);
 
@@ -45,5 +53,4 @@ public class FileUploadController {
 
         return ResponseEntity.ok(response);
     }
-
 }
