@@ -24,10 +24,7 @@ public class SecurityConfig {
     private JWTAuthenticationFilter jwtAuthenticationFilter;
 
     private static final String[] PUBLIC_ENDPOINTS = {
-        "/api/auth/**",
-        "/api/files/video/**",
-        "/api/files/image/**"
-    };
+        "/api/auth/**",};
 
     @Bean
     public PasswordEncoder passwordEncoder() {

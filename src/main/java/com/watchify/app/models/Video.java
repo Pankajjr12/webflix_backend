@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -74,20 +73,12 @@ public class Video {
 
     @JsonProperty("src")
     public String getSrc() {
-        if (srcUuid != null && !srcUuid.isEmpty()) {
-            String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
-            return baseUrl + "/api/files/video/" + srcUuid;
-        }
-        return null;
+        return srcUuid;
     }
 
     @JsonProperty("poster")
     public String getPoster() {
-        if (posterUuid != null && !posterUuid.isEmpty()) {
-            String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().toUriString();
-            return baseUrl + "/api/files/image/" + posterUuid;
-        }
-        return null;
+        return posterUuid;
     }
 
 }
